@@ -67,7 +67,15 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			System.out.println("Action Performed");
+			DisplayedInvertedImage ouputImage2 = new DisplayedInvertedImage();
+			
+			JPanel output2 = new JPanel();
+			output2.setLayout(new BoxLayout(output2, BoxLayout.PAGE_AXIS));
+			output2.add(ouputImage2); 
+
+			JPanel global = new JPanel();
+			global.setLayout(new BoxLayout(global, BoxLayout.LINE_AXIS));
+			global.add(output2);
 		}
 	}
 }
