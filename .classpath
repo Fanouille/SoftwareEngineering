@@ -6,8 +6,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/freechart/jcommon-1.0.23.jar"/>
-	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/freechart/jfreechart-1.0.19.jar"/>
-	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/freechart/jfreechart-1.0.19-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/admin/Desktop/Travail/Mines_Nancy/2A/depinfo/SE/lib/jfreechart-1.0.19-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
