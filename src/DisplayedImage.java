@@ -22,12 +22,22 @@ public class DisplayedImage extends JPanel {
     static void setImage(BufferedImage img, String str){
     	try {
 			img = ImageIO.read(new File(str));
-			repaint();
+			//repaint();
        		} 
 		catch (IOException e) {
     		e.printStackTrace();
 		}
     }
+    
+    public BufferedImage getimage(){
+    	return image;
+    }
+
+    public void RefreshImage(BufferedImage newimg){
+    	image=newimg;
+    	repaint();
+    }
+    
     
     public void paintComponent(Graphics g){
     		//g.drawImage(image, 0, 0, this); // draw as much as possible

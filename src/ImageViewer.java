@@ -88,7 +88,7 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	class ButtonCharger implements ActionListener{
 		public JTextField status = new JTextField("pas de fichier chargé");
 	    public JFileChooser choose = new JFileChooser();
-	    private BufferedImage image;
+	    private BufferedImage image = ouputImage.getimage();
 	    
 	    public void actionPerformed(ActionEvent evt){ //ouvrir une boite de dialogue pour choisir un fichier
 	    	choose.setApproveButtonText("Charger un fichier");
@@ -96,15 +96,18 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	    	if (choose.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
 	    		status.setText(choose.getSelectedFile().getAbsolutePath());
 	    		System.out.println(status.getText());
+	    		
+	    		try{
+	    			image = ImageIO.read(new File(status.getText()));
+	    		}
+	    		catch (IOException e) {
+	        		e.printStackTrace();
+	    		}
+	    		
+
 	    	}
-	    	String str = status.getText(); // charger image 
-	    	try {
-    			DisplayedImage.setImage(image,str); 
-    			repaint();
-           		} 
-    		catch (IOException e) {
-        		e.printStackTrace();
-        	} 
+	    	ouputImage.RefreshImage(image);
+	    	
 	    }
 	    
 	    

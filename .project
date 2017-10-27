@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>BasicImageInformation</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>src/BarChart_AWT.java</name>
+			<type>1</type>
+			<location>D:/Mines Nancy/2A/SE/BarChart_AWT.java</location>
+		</link>
+		<link>
+			<name>src/HistoListener.java</name>
+			<type>1</type>
+			<location>D:/Mines Nancy/2A/SE/HistoListener.java</location>
+		</link>
+	</linkedResources>
+</projectDescription>
