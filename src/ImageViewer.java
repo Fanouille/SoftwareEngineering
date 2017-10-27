@@ -14,6 +14,9 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	private DisplayedImage inputImage = new DisplayedImage(); 
 	private DisplayedImage ouputImage = new DisplayedImage();
 	private JButton buttonAction = new JButton("Action");
+	private JButton buttonHisto = new JButton("Histogramme");
+	private JButton buttonQuant = new JButton("Quantification");
+
 
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
@@ -34,6 +37,18 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		action.add(buttonAction);
 		// Defines action associated to buttons
 		buttonAction.addActionListener(new ButtonListener());
+		
+		JPanel histo = new JPanel();
+		histo.setLayout(new BoxLayout(histo, BoxLayout.PAGE_AXIS));
+		histo.add(buttonHisto);
+		// Defines action associated to buttons
+		buttonHisto.addActionListener(new HistoListener());
+		
+		JPanel quant = new JPanel();
+		quant.setLayout(new BoxLayout(quant, BoxLayout.PAGE_AXIS));
+		quant.add(buttonQuant);
+		// Defines action associated to buttons
+		buttonQuant.addActionListener(new Quant());
 
 		JPanel output = new JPanel();
 		output.setLayout(new BoxLayout(output, BoxLayout.PAGE_AXIS));
@@ -43,7 +58,10 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		global.setLayout(new BoxLayout(global, BoxLayout.LINE_AXIS));
 		global.add(input);
 		global.add(action);
+		global.add(quant);
+		global.add(histo);
 		global.add(output);
+
 
 		this.getContentPane().add(global);
 
@@ -69,5 +87,13 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		{
 			System.out.println("Action Performed");
 		}
+	class HistoListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			System.out.println("Histogramme créé");
+		}
+
+	}
+
 	}
 }
