@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -12,7 +13,6 @@ public class Quant implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) 
 	{
 		couleur[] palette;
-		int[][] image_traitee;
 		//importation de l'image
 		BufferedImage ima = null;
 		try {
@@ -24,13 +24,12 @@ public class Quant implements ActionListener {
 		System.out.println("Matrice importée");
 		int h;
 		int w;
-		int total=0;
 		w= ima.getWidth();
 		h= ima.getHeight();
 		int[][][] image = new int[w][h][3];
 		System.out.println("L x H :"+w +"  "+ h);
 		//récupération des couleurs, mises dans le tableau image
-		int R,V,B,i,j,A;
+		int i,j,A;
 		for( j=0 ; j<h;  j+=1)
 		{
 			for(i=0; i<w ; i+=1)
@@ -47,9 +46,47 @@ public class Quant implements ActionListener {
 		//création d'un arbre à partir de line
 		KdTree Arbre1 = InitFromArray(line);
 		palette = Arbre1.palette(5);
-		printpal(palette);
+		line = CoulToInt(palette);
+		KdTree Arbre2 = InitFromArray(line);
+		System.out.println("arbre de la palette créé.");
+		int[][] image_traitee = quantif(Arbre2, image, w,h, palette);
+		System.out.println("Image Traitée!!!");
+
+
+		
 		
  }
+
+	
+	public int[][] quantif(KdTree Arbre, int[][][] image, int w, int h, couleur[] pal)
+	{
+		int[][] image_t= new int[w][h];
+		couleur A= new couleur(0,0,0);
+		int i,j;
+		for(i=0; i<w; i++)
+		{
+			for(j=0; j<h; j++)
+			{
+				A= new couleur(image[i][j]);
+				image_t[i][j]= Arbre.getNearestNeighbors(A, pal);
+			}
+		}
+		
+		return image_t;
+	}
+	
+	public int[][] CoulToInt(couleur[] pal)
+	{
+		int[][] line = new int[pal.length][3];
+		int i;
+		for(i=0;i<pal.length;i++)
+		{
+			int[] A= pal[i].getRVB();
+			line[i]=A;
+		}
+		return line;
+	}
+	
 	public void printpal(couleur[] pal)
 	{
 		int i;

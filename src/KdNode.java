@@ -109,4 +109,55 @@ public class KdNode {
 		}
 	}
 
+	public couleur getNN(couleur A)
+	{
+		if ((A.getRVB())[P%3] > (coul.getRVB())[P%3])
+		{
+			if (fils[1])
+			{
+				couleur CurrentBest = filsD.getNN(A);
+				if (CurrentBest.distance(A) > coul.distance(A))
+				{
+					CurrentBest=coul;
+				}
+				if(CurrentBest.distance(A) > Math.abs((coul.getRVB())[P%3] - (A.getRVB())[P%3])  && fils[0])
+				{
+					couleur Alter = filsG.getNN(A);
+					if(CurrentBest.distance(A) > Alter.distance(A))
+					{
+						CurrentBest=Alter;
+					}
+				}
+				return CurrentBest;
+			}
+			else
+			{
+				return coul;
+			}
+		}
+		else
+		{
+			if (fils[0])
+			{
+				couleur CurrentBest = filsG.getNN(A);
+				if (CurrentBest.distance(A) > coul.distance(A))
+				{
+					CurrentBest=coul;
+				}
+				if(CurrentBest.distance(A) > Math.abs((coul.getRVB())[P%3] - (A.getRVB())[P%3])  && fils[1])
+				{
+					couleur Alter = filsD.getNN(A);
+					if(CurrentBest.distance(A) > Alter.distance(A))
+					{
+						CurrentBest=Alter;
+					}
+				}
+				return CurrentBest;
+			}
+			else
+			{
+				return coul;
+			}
+		}
+	}
 }

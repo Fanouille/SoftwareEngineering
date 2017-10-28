@@ -28,6 +28,20 @@ public class KdTree{
 		palette= Racine.palnode(palette);
 		return palette;
 	}
+	
+	public int getNearestNeighbors(couleur A, couleur[] pal)
+	{
+		couleur Nearest= Racine.getNN(A);
+		int i;
+		for(i=0;i<pal.length;i++)
+		{
+			if (Nearest.egal(pal[i]))
+			{
+				return (i);
+			}
+		}
+		return 0;
+	}
 
 
 }

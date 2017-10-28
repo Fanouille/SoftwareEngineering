@@ -68,5 +68,9 @@ public class couleur {
 		Retour.initN(N+C.getN());
 		return Retour;
 	}
+	public boolean egal(couleur C)
+	{
+		return(R==C.getR() && G==C.getG() && B==C.getB());
+	}
 	
 }
