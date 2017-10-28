@@ -1,19 +1,51 @@
+
+
 public class KdNode {
-	
-	private Couleur couleur;
-	private int coordX,coordY;
-	private int P;
-	private boolean[] fils= {false,false};
-	private KdNode filsD; private KdNode filsG;
-	
-	public KdNode (Couleur RVB, int[] XY, int Prof)
+	int P;
+	couleur coul;
+	KdNode filsG;
+	KdNode filsD;
+	boolean[] fils= {false,false};
+	public KdNode(couleur C, int p)
 	{
-	/* CONSTRUCTEUR
-	* Argument: un objet couleur, un tableau avec 2 nombres X,Y, et la profondeur du noeud.
-	*/
-		this.couleur=RVB;
-		this.coordX=XY[0];
-		this.coordY=XY[1];
-		this.P=Prof;
+		//Constructeur : P=profondeur du noeud, coul= couleur
+		P=p;
+		coul=C;
+	}
+	
+	public int addpointnode(couleur RVB)
+	{
+		//ajoute un point par r�cursivit� et renvoie la profondeur � laquelle il a �t� ajout�
+		if (RVB.getRVB()[P%3]>coul.getRVB()[P%3])
+		{
+			if(fils[1])
+			{
+				return(filsD.addpointnode(RVB));
+			}
+			else
+			{
+				fils[1]=true;
+				filsD= new KdNode(RVB, P+1);
+				return P+1;
+			}
+		}
+		else
+		{
+			if(fils[0])
+			{
+				return(filsG.addpointnode(RVB));
+			}
+			else
+			{
+				fils[0]=true;
+				filsG= new KdNode(RVB, P+1);
+				return P+1;
+			}
+		}
+	}
+	public couleur[] palettenode(couleur[] palette,int p)
+	{
+		
+
 	}
 }

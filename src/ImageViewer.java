@@ -19,6 +19,12 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 {
 	private DisplayedImage inputImage = new DisplayedImage(); 
 	private DisplayedImage ouputImage = new DisplayedImage();
+
+	private JButton buttonAction = new JButton("Action");
+	private JButton buttonHisto = new JButton("Histogramme");
+	private JButton buttonQuant = new JButton("Quantification");
+
+
 	private JButton buttonInverse = new JButton("Inverse");
 
 	private JMenuBar menuBar = new JMenuBar();
@@ -39,13 +45,27 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		inverse.setLayout(new BoxLayout(inverse, BoxLayout.PAGE_AXIS));
 		inverse.add(buttonInverse);
 		// Defines action associated to buttons
+
+		buttonAction.addActionListener(new ButtonListener());
 		
+		JPanel histo = new JPanel();
+		histo.setLayout(new BoxLayout(histo, BoxLayout.PAGE_AXIS));
+		histo.add(buttonHisto);
+		// Defines action associated to buttons
+		buttonHisto.addActionListener(new HistoListener());
+		
+		JPanel quant = new JPanel();
+		quant.setLayout(new BoxLayout(quant, BoxLayout.PAGE_AXIS));
+		quant.add(buttonQuant);
+		// Defines action associated to buttons
+		buttonQuant.addActionListener(new Quant());
+
 		buttonInverse.addActionListener(new ButtonListener(){
 			public void actionPerformed(ActionEvent arg0) {						
 	    		BufferedImage Invimage;
 				Invimage = ouputImage.getimage();
 				
-				/*D�but du traitement de l'image*/
+				/*Début du traitement de l'image*/
 				int x,y;
 				int color;
 				
@@ -65,6 +85,7 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	    			
 	    		}});
 
+
 		JPanel output = new JPanel();
 		output.setLayout(new BoxLayout(output, BoxLayout.PAGE_AXIS));
 		output.add(ouputImage); 
@@ -72,8 +93,15 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		JPanel global = new JPanel();
 		global.setLayout(new BoxLayout(global, BoxLayout.LINE_AXIS));
 		global.add(input);
+
+		global.add(action);
+		global.add(quant);
+		global.add(histo);
+
 		global.add(inverse);
+
 		global.add(output);
+
 
 		this.getContentPane().add(global);
 
@@ -100,6 +128,14 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		public void actionPerformed(ActionEvent arg0) 
 		{
 		}
-		
+
+	class HistoListener implements ActionListener{
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			System.out.println("Histogramme créé");
+		}
+
+	}
+
 	}
 }
