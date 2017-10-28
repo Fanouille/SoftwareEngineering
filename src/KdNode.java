@@ -9,8 +9,8 @@ public class KdNode {
 	
 	private int p;
 	
-	private KdNode fils1 = null;
-	private KdNode fils2 = null;
+	private KdNode filsG = null;
+	private KdNode filsD = null;
 	
 	public KdNode(int prof, Couleurs col){
 		
@@ -37,21 +37,21 @@ public class KdNode {
 		int p = this.getProfondeur();
 		switch (this.couleur.comparaison(direction, point.getCouleur())){
 		case 1: //fils de gauche
-			if (this.fils1==null){
-				this.fils1 = point;
+			if (this.filsG==null){
+				this.filsG = point;
 				return p+1;
 			}
 			else{
-				this.fils1.addPointNode(point);
+				this.filsG.addPointNode(point);
 			}
 		
 		case -1: //fils de droite
-			if (this.fils2==null){
-				this.fils2 = point;
+			if (this.filsD==null){
+				this.filsD = point;
 				return (p +1);
 			}
 			else{
-				this.fils2.addPointNode(point);
+				this.filsD.addPointNode(point);
 			}
 		default: //0
 			return this.p;//le point est deja dedans
@@ -61,10 +61,10 @@ public class KdNode {
 	}
 	
 	public int getNombreFils(){
-		if(this.fils1 != null && this.fils2 != null){
+		if(this.filsG != null && this.filsD != null){
 			return 2;
 		}
-		else if (this.fils1 != null || this.fils2 != null){
+		else if (this.filsG != null || this.filsD != null){
 			return 1;
 		}
 		else{
@@ -72,29 +72,29 @@ public class KdNode {
 		}
 	}
 	
-	public KdNode getFils1(){
-		return this.fils1;
+	public KdNode getFilsG(){
+		return this.filsG;
 	}
 	
-	public KdNode getFils2(){
-		return this.fils2;
+	public KdNode getFilsD(){
+		return this.filsD;
 	}
 	
 	public void replaceNode(KdNode point){ //remplace this par point
 		this.couleur = point.getCouleur();
-		this.fils1 = point.getFils1();
-		this.fils2 = point.getFils2();
+		this.filsG = point.getFilsG();
+		this.filsD = point.getFilsD();
 	}
 	
 	
 	public ArrayList<KdNode> getPointFromTree(KdNode point, ArrayList<KdNode> liste){ //donne tous les points en dessous dans l'arbre
 		if (point != null){
  			liste.add(point);
-			if(point.getFils1()!=null){
-				getPointFromTree(point.getFils1(),liste);
+			if(point.getFilsG()!=null){
+				getPointFromTree(point.getFilsG(),liste);
 			}
-			else if(point.getFils2()!=null){
-				getPointFromTree(point.getFils2(),liste);
+			else if(point.getFilsD()!=null){
+				getPointFromTree(point.getFilsD(),liste);
 			}
 		}
 		return liste;
@@ -105,18 +105,18 @@ public class KdNode {
 		int direction = this.getDirection();
 		switch (this.couleur.comparaison(direction, point.getCouleur())){
 		case 1: //fils de gauche
-			this.fils1.removePointNode(point);
+			this.filsG.removePointNode(point);
 		
 		case -1: //fils de droite
-			this.fils2.removePointNode(point);
+			this.filsD.removePointNode(point);
 			
 		default: //0 c'est le point à supprimer
 			//son fils de droite va prendre sa place, tous les fils de gauche reconstruits
-			point.replaceNode(point.getFils2());//il emmene tous ses fils avec 
+			point.replaceNode(point.getFilsD());//il emmene tous ses fils avec 
 			ArrayList<KdNode> liste = new ArrayList<KdNode>();
-			getPointFromTree(point.getFils1(), liste);
+			getPointFromTree(point.getFilsG(), liste);
 			for (int i=0;i<liste.size();i++){
-				point.getFils2().addPointNode(liste.get(i)); // point fils ou point tt court
+				point.getFilsD().addPointNode(liste.get(i)); // point fils ou point tt court
 			}
 			
 			
