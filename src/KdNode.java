@@ -1,4 +1,5 @@
 
+
 public class KdNode {
 	int P;
 	couleur coul;
@@ -14,7 +15,7 @@ public class KdNode {
 	
 	public int addpointnode(couleur RVB)
 	{
-		//ajoute un point par récursivité et renvoie la profondeur à laquelle il a été ajouté
+		//ajoute un point par rï¿½cursivitï¿½ et renvoie la profondeur ï¿½ laquelle il a ï¿½tï¿½ ajoutï¿½
 		if (RVB.getRVB()[P%3]>coul.getRVB()[P%3])
 		{
 			if(fils[1])
@@ -45,5 +46,6 @@ public class KdNode {
 	public couleur[] palettenode(couleur[] palette,int p)
 	{
 		
+
 	}
 }

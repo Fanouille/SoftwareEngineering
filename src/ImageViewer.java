@@ -4,19 +4,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 
+import java.awt.Image;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ImageViewer extends JFrame /*implements ActionListener*/
 {
 	private DisplayedImage inputImage = new DisplayedImage(); 
 	private DisplayedImage ouputImage = new DisplayedImage();
+
 	private JButton buttonAction = new JButton("Action");
 	private JButton buttonHisto = new JButton("Histogramme");
 	private JButton buttonQuant = new JButton("Quantification");
 
+
+	private JButton buttonInverse = new JButton("Inverse");
 
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
@@ -32,10 +41,11 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		input.setLayout(new BoxLayout(input, BoxLayout.PAGE_AXIS));
 		input.add(inputImage);
 
-		JPanel action = new JPanel();
-		action.setLayout(new BoxLayout(action, BoxLayout.PAGE_AXIS));
-		action.add(buttonAction);
+		JPanel inverse = new JPanel();
+		inverse.setLayout(new BoxLayout(inverse, BoxLayout.PAGE_AXIS));
+		inverse.add(buttonInverse);
 		// Defines action associated to buttons
+
 		buttonAction.addActionListener(new ButtonListener());
 		
 		JPanel histo = new JPanel();
@@ -50,6 +60,32 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		// Defines action associated to buttons
 		buttonQuant.addActionListener(new Quant());
 
+		buttonInverse.addActionListener(new ButtonListener(){
+			public void actionPerformed(ActionEvent arg0) {						
+	    		BufferedImage Invimage;
+				Invimage = ouputImage.getimage();
+				
+				/*DÃ©but du traitement de l'image*/
+				int x,y;
+				int color;
+				
+				for(x=0;x<Invimage.getWidth();x++){
+					for(y=0; y<Invimage.getHeight();y++){
+						
+						color=Invimage.getRGB(x, y);
+						int blue = color & 0xff;
+						int green = (color & 0xff00) >> 8;
+						int red = (color & 0xff0000) >> 16;
+						
+						Color newclr= new Color(255-red, 255-green, 255-blue);
+						Invimage.setRGB(x, y, newclr.getRGB());
+						ouputImage.RefreshImage(Invimage);
+					}
+				}
+	    			
+	    		}});
+
+
 		JPanel output = new JPanel();
 		output.setLayout(new BoxLayout(output, BoxLayout.PAGE_AXIS));
 		output.add(ouputImage); 
@@ -57,9 +93,13 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		JPanel global = new JPanel();
 		global.setLayout(new BoxLayout(global, BoxLayout.LINE_AXIS));
 		global.add(input);
+
 		global.add(action);
 		global.add(quant);
 		global.add(histo);
+
+		global.add(inverse);
+
 		global.add(output);
 
 
@@ -77,6 +117,8 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		this.setJMenuBar(menuBar);
 
 		this.setVisible(true);
+		
+		
 	}
 
 	/**
@@ -85,12 +127,12 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			System.out.println("Action Performed");
 		}
+
 	class HistoListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			System.out.println("Histogramme créé");
+			System.out.println("Histogramme crÃ©Ã©");
 		}
 
 	}
