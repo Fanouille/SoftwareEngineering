@@ -15,7 +15,7 @@ public class KdNode {
 	
 	public int addpointnode(couleur RVB)
 	{
-		//ajoute un point par r�cursivit� et renvoie la profondeur � laquelle il a �t� ajout�
+		//ajoute un point par recursivite et renvoie la profondeur a laquelle il a �t� ajout�
 		if (RVB.getRVB()[P%3]>coul.getRVB()[P%3])
 		{
 			if(fils[1])
@@ -43,9 +43,70 @@ public class KdNode {
 			}
 		}
 	}
-	public couleur[] palettenode(couleur[] palette,int p)
+	public couleur getcoul()
 	{
-		
-
+		return coul;
 	}
+	public couleur[] palnode(couleur[] pal)
+	{
+		int L= pal.length;
+		if(L==2)
+		{
+			pal[0]=filsD.Moy();
+			pal[1]=filsG.Moy();
+			return pal;
+		}
+		else
+		{
+			int i;
+			couleur[] A=new couleur[L/2];
+			couleur[] B=new couleur[L/2];
+			if(fils[0]) {A=filsG.palnode(A);}
+			else {
+				for(i=0;i<L/2;i++)
+				{
+					A[i]=new couleur(0,0,0);
+				}
+			}
+			if(fils[1]) {B=filsD.palnode(B);}
+			else
+			{
+				for(i=0;i<L/2;i++)
+				{
+					B[i]=new couleur(0,0,0);
+				}
+			}
+			for(i=0;i<L;i++)
+			{
+				if(i<L/2) {pal[i]=A[i];}
+				else {pal[i]=B[i-L/2];}
+			}
+			return pal;
+			
+		}
+	}
+	public couleur Moy()
+	{
+		if(fils[0] && fils[1])
+		{
+			couleur A = (filsD.Moy()).moyenne(coul);
+			A=(filsG.Moy()).moyenne(A);
+			return A;
+		}
+		else if(fils[1])
+		{
+			couleur A = (filsD.Moy()).moyenne(coul);
+			return A;
+		}
+		else if(fils[0])
+		{
+			couleur A = (filsG.Moy()).moyenne(coul);
+			return A;
+		}
+		else
+		{
+			return coul;
+		}
+	}
+
 }

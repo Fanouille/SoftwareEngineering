@@ -46,8 +46,19 @@ public class Quant implements ActionListener {
 		int[][] line= linear(image,w,h);
 		//création d'un arbre à partir de line
 		KdTree Arbre1 = InitFromArray(line);
+		palette = Arbre1.palette(5);
+		printpal(palette);
 		
  }
+	public void printpal(couleur[] pal)
+	{
+		int i;
+		for(i=0;i<pal.length;i++)
+		{
+			pal[i].printcoul();
+		}
+	}
+	
 	public void printtab(int[][] tableau, int dim)
 	{
 		int i;
@@ -110,23 +121,24 @@ public class Quant implements ActionListener {
 	KdTree InitFromArray(int[][] line)
 	{
 		line = tridim(line, 0);
-		System.out.println("premier tri fini");
+		System.out.println("premier tri fini: veuillez attendre environ 70sec");
 		int L=line.length;
-		KdTree Arbre= new KdTree(line[(int)(L/2)]);
-		int[][] LP=new int[(int)(L/2)][3];
-		int[][] LG=new int[L-1-(int)(L/2)][3];
+		int mid=(int)(L/2);
+		KdTree Arbre= new KdTree(line[mid]);
+		int[][] LP=new int[mid][3];
+		int[][] LG=new int[L-1-mid][3];
 		int i;
-		for(i=0;i<(int)(L/2);i++)
+		for(i=0;i<mid;i++)
 		{
 			LP[i]=line[i];
 		}
-		for(i=(int)(L/2) +1;i<L; i++)
+		for(i=mid +1;i<L; i++)
 		{
-			LG[i-((int)(L/2) +1)]=line[i];
+			LG[i-(mid +1)]=line[i];
 		}
-		i=InitR(Arbre, LG, 1);
 		i=InitR(Arbre, LP, 1);
-		System.out.println("arbre implanté");
+		i=InitR(Arbre, LG, 1);
+		System.out.println("arbre implanté ");
 		return Arbre;
 	}
 	int InitR(KdTree Arbre, int[][] list, int dim)
@@ -143,22 +155,21 @@ public class Quant implements ActionListener {
 			Arbre.addpoint(list[1]);
 			return 0;
 		}
+		
+		int mid=(int)(L/2), i;
 		list=tridim(list, dim);
-		Arbre.addpoint(list[(int)(L/2)]);
-		int[][] LP=new int[(int)(L/2)][3];
-		int[][] LG=new int[L-1-(int)(L/2)][3];
-		int i;
-		for(i=0;i<(int)(L/2);i++)
+		int[][] LP=new int[mid][3];
+		int[][] LG=new int[L-1-mid][3];
+
+		for(i=0;i<L;i++)
 		{
-			LP[i]=list[i];
+			if(i<mid) {LP[i]=list[i];}
+			else if(i==mid) {Arbre.addpoint(list[mid]);}
+			else {LG[i-1 -mid]= list[i];}
 		}
-		for(i=(int)(L/2) +1;i<L; i++)
-		{
-			LG[i-((int)(L/2) +1)]=list[i];
-		}
-		System.out.println("dimension: "+ dim);
-		InitR(Arbre, LG, (dim+1)%3);
-		InitR(Arbre, LP, (dim+1)%3);
+		
+		i=InitR(Arbre, LP, (dim+1)%3);
+		i=InitR(Arbre, LG, (dim+1)%3);
 		return 0;
 		
 	}

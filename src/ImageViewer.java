@@ -94,7 +94,6 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		global.setLayout(new BoxLayout(global, BoxLayout.LINE_AXIS));
 		global.add(input);
 
-		global.add(action);
 		global.add(quant);
 		global.add(histo);
 

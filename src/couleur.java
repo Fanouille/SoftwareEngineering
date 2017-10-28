@@ -1,6 +1,9 @@
 
 public class couleur {
 	int R,G,B;
+	int N=1;
+	// N représente de combien de couleurs est issue celle ci, 
+	//pour pouvoir faire des moyennes sans consommer trop de mémoire 
 	public couleur(int Red, int Green, int Blue)
 	{
 		R=Red;
@@ -15,6 +18,10 @@ public class couleur {
 		B=RVB[2];
 	}
 	
+	public void initN(int n)
+	{
+		N=n;
+	}
 	public int getR()
 	{
 		return R;
@@ -26,6 +33,10 @@ public class couleur {
 	public int getB()
 	{
 		return B;
+	}
+	public int getN()
+	{
+		return N;
 	}
 	public int[] getRVB()
 	{
@@ -40,6 +51,22 @@ public class couleur {
 		A+=(G-C.getG())*(G-C.getG());
 		A+=(B-C.getB())*(B-C.getB());
 		return A;
+	}
+	
+	public void printcoul()
+	{
+		System.out.printf(" %d , %d , %d \n",R, G, B);
+	}
+	
+	public couleur moyenne(couleur C)
+	{
+		int[] A=new int[3];
+		A[0]=(R*N + C.getR()*C.getN())/(N+C.getN());
+		A[1]=(G*N + C.getG()*C.getN())/(N+C.getN());
+		A[2]=(B*N + C.getB()*C.getN())/(N+C.getN());
+		couleur Retour=new couleur(A);
+		Retour.initN(N+C.getN());
+		return Retour;
 	}
 	
 }
