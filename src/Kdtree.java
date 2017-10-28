@@ -1,45 +1,61 @@
 
-public class Kdtree{
+import java.lang.reflect.Array;
+import java.util.*;
 
-	private Couleur couleurR;
-	private KdNode Racine;
+public class Kdtree {
+	Couleur couleurR; 
+	int Profondeur=0; 
+	KdNode Racine=null; 
+	
+ 	public Kdtree (int[] RVB) 
+ 	{ 
+ 	 	this.couleurR=new Couleur(RVB[0], RVB[1], RVB[2]);  	 	
+ 	 	this.Racine= new KdNode(couleurR, 0); 
+ 	}
 
-	public Kdtree (int RVB[], int XY[]){
-		this.couleurR=new Couleur(RVB[0], RVB[1], RVB[2]);
-		this.Racine= new KdNode(couleurR, XY,0);
-	}
-	
-	public void removePoint(int XY[]){
-		
-	}
-	//Retire un noeud de l’arbe
-	public void addpoint(int XY[], int RVB[]){
-		
-	}
-	/*Ajoute un point à la racine de l’arbre, en créant une couleur associée à RVB
-	Met à jour profondeur
-	>> la méthode addpoint de KdNode devra renvoyer un entier la profondeur du nouveau noeud créé*/
-	
-	/*public int addpoint(Couleur RVB, int[] XY){ 
-	 	if(RVB.compare(couleur, P%3)){
-			if (fils[0]){
-				filsG.addpoint(RVB, XY);
-			}
-			else{ 
-				filsG= new KdNode(RVB,XY, P+1);
-				fils[0]=true; return P+1;
-			}
-		}
-		else{
-			if (fils[1]){
-				filsD.addpoint(RVB, XY);
-			}
-				else{ 
-					filsD= new KdNode(RVB,XY,P+1);
-					fils[1]=true; return P+1;
-				}
-		}*/
+ 	public void addpoint(Couleur col) {
+ 		if (Racine==null) {
+ 			Racine= new KdNode(col,0);
+ 		}
+ 		else {
+ 			int P=Racine.addpointnode(col);
+ 			if (P>Profondeur) {
+ 				Profondeur=P;
+ 			}
+ 		}
+ 	}
+ 	
+ 	Couleur[] fd=null;
+ 	Couleur[] fg=null;
+ 	Couleur point_median;
+ 	
+ 	public void median(Couleur[] matrice,int p){
+ 		int direction = p%3;
+ 		Arrays.sort(matrice, (a,b)->a.compared(b, direction));
+ 		int len = matrice.length;
+ 		point_median = matrice[len/2]; 
+ 		for (int i=0;i<len/2;i++) {
+ 			fg[i]=matrice[i];
+ 			if (i != 0) {
+ 				fd[i]=matrice[len/2+i];
+ 			}
+ 		}		
+ 	}
+ 	
+ 	public int initFromArray(Couleur[] matrice) {
+ 		if (matrice == null) {
+ 			return 0;
+ 		}
+ 		else {
+ 			fd=null;
+ 			fg=null;
+ 			point_median=null;
+ 			median(matrice,Profondeur);
+ 			addpoint(point_median);
+ 			initFromArray(fg);
+ 			initFromArray(fd);
+ 		}
+ 		return 0;	
+ 	}
+
 }
-/*couleurR= couleur de la racine (class Couleur)
-Profondeur=profondeur de l’arbre
-Racine = Premier noeud de l’arbe (class KdNode)*/

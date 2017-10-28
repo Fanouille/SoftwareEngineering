@@ -1,5 +1,3 @@
-
-
 public class KdNode {
 	int P;
 	couleur coul;
@@ -13,36 +11,7 @@ public class KdNode {
 		coul=C;
 	}
 	
-	public int addpointnode(couleur RVB)
-	{
-		//ajoute un point par r�cursivit� et renvoie la profondeur � laquelle il a �t� ajout�
-		if (RVB.getRVB()[P%3]>coul.getRVB()[P%3])
-		{
-			if(fils[1])
-			{
-				return(filsD.addpointnode(RVB));
-			}
-			else
-			{
-				fils[1]=true;
-				filsD= new KdNode(RVB, P+1);
-				return P+1;
-			}
-		}
-		else
-		{
-			if(fils[0])
-			{
-				return(filsG.addpointnode(RVB));
-			}
-			else
-			{
-				fils[0]=true;
-				filsG= new KdNode(RVB, P+1);
-				return P+1;
-			}
-		}
-	}
+	
 	public couleur[] palettenode(couleur[] palette,int p)
 	{
 		
