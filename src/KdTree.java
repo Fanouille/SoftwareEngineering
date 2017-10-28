@@ -1,28 +1,33 @@
 
-public class KdTree {
-	int P=0;
-	KdNode Racine;
-	public KdTree(int[] RVB)
-	{
-		couleur coul= new couleur(RVB);
-		Racine= new KdNode(coul,P);
+public class KdTree{
+	private int profondeur=0;
+
+	private couleur couleurR;
+	private KdNode Racine;
+
+	public KdTree (int RVB[]){
+		this.couleurR=new couleur(RVB[0], RVB[1], RVB[2]);
+		this.Racine= new KdNode(couleurR,0);
 	}
 	
-	void addpoint(int []RVB)
-	{
-		//ajoute un point à l'arbre, si il est plus profond, on augemente la profondeur max de l'arbre
-		couleur coul=new couleur(RVB);
-		int A=Racine.addpointnode(coul);
-		if (A>P)
+
+
+	public void addpoint(int RVB[]){
+		couleur C=new couleur(RVB);
+		int p= Racine.addpointnode(C);
+		if(p>profondeur)
 		{
-			P=A;
+			profondeur=p;
 		}
+		
 	}
-	couleur[] palette(int p)
+	public couleur[] palette(int pow)
 	{
-		int L=(int) Math.pow(2,p);
-		couleur[] palette= new couleur[L];
-		palette= Racine.palettenode(palette, p);
+		//renvoie une palette de 2**pow couleurs
+		couleur[] palette= new couleur[(int) Math.pow(2, pow-1)];
+		palette= Racine.palnode(palette);
 		return palette;
 	}
+
+
 }
