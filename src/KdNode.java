@@ -2,18 +2,18 @@
 
 public class KdNode {
 	int P;
-	couleur coul;
+	Couleur coul;
 	KdNode filsG;
 	KdNode filsD;
 	boolean[] fils= {false,false};
-	public KdNode(couleur C, int p)
+	public KdNode(Couleur C, int p)
 	{
-		//Constructeur : P=profondeur du noeud, coul= couleur
+		//Constructeur : P=profondeur du noeud, coul= Couleur
 		P=p;
 		coul=C;
 	}
 	
-	public int addpointnode(couleur RVB)
+	public int addpointnode(Couleur RVB)
 	{
 		//ajoute un point par recursivite et renvoie la profondeur a laquelle il a �t� ajout�
 		if (RVB.getRVB()[P%3]>coul.getRVB()[P%3])
@@ -43,11 +43,11 @@ public class KdNode {
 			}
 		}
 	}
-	public couleur getcoul()
+	public Couleur getcoul()
 	{
 		return coul;
 	}
-	public couleur[] palnode(couleur[] pal)
+	public Couleur[] palnode(Couleur[] pal)
 	{
 		int L= pal.length;
 		if(L==2)
@@ -59,13 +59,13 @@ public class KdNode {
 		else
 		{
 			int i;
-			couleur[] A=new couleur[L/2];
-			couleur[] B=new couleur[L/2];
+			Couleur[] A=new Couleur[L/2];
+			Couleur[] B=new Couleur[L/2];
 			if(fils[0]) {A=filsG.palnode(A);}
 			else {
 				for(i=0;i<L/2;i++)
 				{
-					A[i]=new couleur(0,0,0);
+					A[i]=new Couleur(0,0,0);
 				}
 			}
 			if(fils[1]) {B=filsD.palnode(B);}
@@ -73,7 +73,7 @@ public class KdNode {
 			{
 				for(i=0;i<L/2;i++)
 				{
-					B[i]=new couleur(0,0,0);
+					B[i]=new Couleur(0,0,0);
 				}
 			}
 			for(i=0;i<L;i++)
@@ -85,22 +85,22 @@ public class KdNode {
 			
 		}
 	}
-	public couleur Moy()
+	public Couleur Moy()
 	{
 		if(fils[0] && fils[1])
 		{
-			couleur A = (filsD.Moy()).moyenne(coul);
+			Couleur A = (filsD.Moy()).moyenne(coul);
 			A=(filsG.Moy()).moyenne(A);
 			return A;
 		}
 		else if(fils[1])
 		{
-			couleur A = (filsD.Moy()).moyenne(coul);
+			Couleur A = (filsD.Moy()).moyenne(coul);
 			return A;
 		}
 		else if(fils[0])
 		{
-			couleur A = (filsG.Moy()).moyenne(coul);
+			Couleur A = (filsG.Moy()).moyenne(coul);
 			return A;
 		}
 		else
@@ -109,20 +109,20 @@ public class KdNode {
 		}
 	}
 
-	public couleur getNN(couleur A)
+	public Couleur getNN(Couleur A)
 	{
 		if ((A.getRVB())[P%3] > (coul.getRVB())[P%3])
 		{
 			if (fils[1])
 			{
-				couleur CurrentBest = filsD.getNN(A);
+				Couleur CurrentBest = filsD.getNN(A);
 				if (CurrentBest.distance(A) > coul.distance(A))
 				{
 					CurrentBest=coul;
 				}
 				if(CurrentBest.distance(A) > Math.abs((coul.getRVB())[P%3] - (A.getRVB())[P%3])  && fils[0])
 				{
-					couleur Alter = filsG.getNN(A);
+					Couleur Alter = filsG.getNN(A);
 					if(CurrentBest.distance(A) > Alter.distance(A))
 					{
 						CurrentBest=Alter;
@@ -139,14 +139,14 @@ public class KdNode {
 		{
 			if (fils[0])
 			{
-				couleur CurrentBest = filsG.getNN(A);
+				Couleur CurrentBest = filsG.getNN(A);
 				if (CurrentBest.distance(A) > coul.distance(A))
 				{
 					CurrentBest=coul;
 				}
 				if(CurrentBest.distance(A) > Math.abs((coul.getRVB())[P%3] - (A.getRVB())[P%3])  && fils[1])
 				{
-					couleur Alter = filsD.getNN(A);
+					Couleur Alter = filsD.getNN(A);
 					if(CurrentBest.distance(A) > Alter.distance(A))
 					{
 						CurrentBest=Alter;

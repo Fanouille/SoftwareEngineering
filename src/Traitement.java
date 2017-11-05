@@ -15,7 +15,7 @@ public class Traitement {
 	{
 		
 		
-		couleur[] palette;
+		Couleur[] palette;
 		//passage d'un tableau w*h à un tableau à une ligne
 		int[][] line= linear(image,w,h);
 		//création d'un arbre à partir de line
@@ -33,7 +33,7 @@ public class Traitement {
 	{
 		return this.imagefinale;
 	}
-	public int[][][] ajoutcoul(int[][] image, couleur[] palette, int w, int h)
+	public int[][][] ajoutcoul(int[][] image, Couleur[] palette, int w, int h)
 	{
 		int[][][] imagefinale = new int[w][h][3];
 		int i,j;
@@ -46,16 +46,16 @@ public class Traitement {
 		}
 		return imagefinale;
 	}
-	public int[][] quantif(KdTree Arbre, int[][][] image, int w, int h, couleur[] pal)
+	public int[][] quantif(KdTree Arbre, int[][][] image, int w, int h, Couleur[] pal)
 	{
 		int[][] image_t= new int[w][h];
-		couleur A= new couleur(0,0,0);
+		Couleur A= new Couleur(0,0,0);
 		int i,j;
 		for(i=0; i<w; i++)
 		{
 			for(j=0; j<h; j++)
 			{
-				A= new couleur(image[i][j]);
+				A= new Couleur(image[i][j]);
 				image_t[i][j]= Arbre.getNearestNeighbors(A, pal);
 			}
 		}
@@ -63,7 +63,7 @@ public class Traitement {
 		return image_t;
 	}
 	
-	public int[][] CoulToInt(couleur[] pal)
+	public int[][] CoulToInt(Couleur[] pal)
 	{
 		int[][] line = new int[pal.length][3];
 		int i;
@@ -75,7 +75,7 @@ public class Traitement {
 		return line;
 	}
 	
-	public void printpal(couleur[] pal)
+	public void printpal(Couleur[] pal)
 	{
 		int i;
 		for(i=0;i<pal.length;i++)

@@ -2,18 +2,18 @@
 public class KdTree{
 	private int profondeur=0;
 
-	private couleur couleurR;
+	private Couleur CouleurR;
 	private KdNode Racine;
 
 	public KdTree (int RVB[]){
-		this.couleurR=new couleur(RVB[0], RVB[1], RVB[2]);
-		this.Racine= new KdNode(couleurR,0);
+		this.CouleurR=new Couleur(RVB[0], RVB[1], RVB[2]);
+		this.Racine= new KdNode(CouleurR,0);
 	}
 	
 
 
 	public void addpoint(int RVB[]){
-		couleur C=new couleur(RVB);
+		Couleur C=new Couleur(RVB);
 		int p= Racine.addpointnode(C);
 		if(p>profondeur)
 		{
@@ -21,17 +21,17 @@ public class KdTree{
 		}
 		
 	}
-	public couleur[] palette(int pow)
+	public Couleur[] palette(int pow)
 	{
-		//renvoie une palette de 2**pow couleurs
-		couleur[] palette= new couleur[(int) Math.pow(2, pow-1)];
+		//renvoie une palette de 2**pow Couleurs
+		Couleur[] palette= new Couleur[(int) Math.pow(2, pow-1)];
 		palette= Racine.palnode(palette);
 		return palette;
 	}
 	
-	public int getNearestNeighbors(couleur A, couleur[] pal)
+	public int getNearestNeighbors(Couleur A, Couleur[] pal)
 	{
-		couleur Nearest= Racine.getNN(A);
+		Couleur Nearest= Racine.getNN(A);
 		int i;
 		for(i=0;i<pal.length;i++)
 		{
