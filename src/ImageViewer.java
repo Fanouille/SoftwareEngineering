@@ -3,7 +3,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 
@@ -23,11 +25,13 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	private JButton buttonHisto = new JButton("Histogramme");
 	private JButton buttonQuant = new JButton("Quantification");
 
-
 	private JButton buttonInverse = new JButton("Inverse");
 
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
+	
+	private JMenuItem itemCharge = new JMenuItem("Charger une image");
+
 
 	private JMenuItem itemClose = new JMenuItem("Close");
 
@@ -43,6 +47,12 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		JPanel inverse = new JPanel();
 		inverse.setLayout(new BoxLayout(inverse, BoxLayout.PAGE_AXIS));
 		inverse.add(buttonInverse);
+		
+		JPanel charger = new JPanel();
+		charger.setLayout(new BoxLayout(charger, BoxLayout.PAGE_AXIS));
+		charger.add(itemCharge);
+		// Defines action associated to buttons
+		itemCharge.addActionListener(new ButtonCharger());
 		// Defines action associated to buttons
 
 		buttonAction.addActionListener(new ButtonListener());
@@ -111,7 +121,8 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 				System.exit(0);
 			}        
 		});
-		this.fileMenu.add(itemClose);  
+		this.fileMenu.add(itemClose);
+		this.fileMenu.add(itemCharge);
 
 		this.menuBar.add(fileMenu);
 		this.setJMenuBar(menuBar);
@@ -124,6 +135,34 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	/**
 	 * Class listening to a given button
 	 */
+	class ButtonCharger implements ActionListener{
+		public JTextField status = new JTextField("pas de fichier chargé");
+	    public JFileChooser choose = new JFileChooser();
+	    private BufferedImage image = inputImage.getimage();
+	    
+	    public void actionPerformed(ActionEvent evt){ //ouvrir une boite de dialogue pour choisir un fichier
+	    	choose.setApproveButtonText("Charger un fichier");
+	    	choose.showOpenDialog(null);
+	    	if (choose.showOpenDialog(null)==JFileChooser.APPROVE_OPTION){
+	    		status.setText(choose.getSelectedFile().getAbsolutePath());
+	    		System.out.println(status.getText());
+	    		
+	    		try{
+	    			image = ImageIO.read(new File(status.getText()));
+	    		}
+	    		catch (IOException e) {
+	        		e.printStackTrace();
+	    		}
+	    		
+
+	    	}
+	    	inputImage.RefreshImage(image);
+	    	ouputImage.RefreshImage(image);
+	    	
+	    }
+	    
+	    
+	}
 	class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent arg0) 
 		{
@@ -176,3 +215,4 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 
 	}
 }
+
