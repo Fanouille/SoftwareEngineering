@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 
-import java.awt.Image;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +57,8 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 		quant.setLayout(new BoxLayout(quant, BoxLayout.PAGE_AXIS));
 		quant.add(buttonQuant);
 		// Defines action associated to buttons
+		
+		// ##########  CLASS QUANT  ##########
 		buttonQuant.addActionListener(new Quant()
 				{
 			public void actionPerformed(ActionEvent arg0) 
@@ -113,12 +114,8 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 				
 				/*Début du traitement de l'image*/
 				int x,y;
-				int color;
-				
 				for(x=0;x<Invimage.getWidth();x++){
 					for(y=0; y<Invimage.getHeight();y++){
-						
-						color=Invimage.getRGB(x, y);
 						int[] RVB = (palette[image[x][y]]).getRVB();
 						Color newclr= new Color(RVB[0], RVB[1], RVB[2]);
 						Invimage.setRGB(x, y, newclr.getRGB());
@@ -281,7 +278,7 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 			}
 
 				});
-
+// ############## FIN CLASS QUANT #############
 		buttonInverse.addActionListener(new ButtonListener(){
 			public void actionPerformed(ActionEvent arg0) {						
 	    		BufferedImage Invimage;
