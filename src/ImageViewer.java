@@ -29,6 +29,7 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu fileMenu = new JMenu("File");
+	private JMenuItem itemSave = new JMenuItem("Save");
 	
 	private JMenuItem itemCharge = new JMenuItem("Charger une image");
 
@@ -126,7 +127,8 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 
 		this.menuBar.add(fileMenu);
 		this.setJMenuBar(menuBar);
-
+		itemSave.addActionListener(new ButtonListener2());
+		this.fileMenu.add(itemSave);
 		this.setVisible(true);
 		
 		
@@ -135,6 +137,24 @@ public class ImageViewer extends JFrame /*implements ActionListener*/
 	/**
 	 * Class listening to a given button
 	 */
+	class ButtonListener2 implements ActionListener{
+		public void actionPerformed(ActionEvent arg0)
+		{
+			final JFileChooser fc=new JFileChooser();
+	        fc.setMultiSelectionEnabled(true);
+	        int returnVal = fc.showSaveDialog(null);
+	        if(returnVal == JFileChooser.APPROVE_OPTION)
+	        {
+	        File saved = fc.getSelectedFile();
+	        try {
+				ImageIO.write(ouputImage.getImage(),"png",saved);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        }
+	    }                                                
+	}
 	class ButtonCharger implements ActionListener{
 		public JTextField status = new JTextField("pas de fichier chargé");
 	    public JFileChooser choose = new JFileChooser();
