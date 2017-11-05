@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -8,38 +9,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Quant implements ActionListener {
-	public void actionPerformed(ActionEvent arg0) 
+public class Traitement {
+	int[][][] imagefinale;
+	public Traitement(int[][][] image, int w, int h) 
 	{
-		couleur[] palette;
-		//importation de l'image
-		BufferedImage ima = null;
-		try {
-			ima = ImageIO.read(new File("img.png"));
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		System.out.println("Matrice importée");
-		int h;
-		int w;
-		w= ima.getWidth();
-		h= ima.getHeight();
-		int[][][] image = new int[w][h][3];
-		System.out.println("L x H :"+w +"  "+ h);
-		//récupération des couleurs, mises dans le tableau image
-		int i,j,A;
-		for( j=0 ; j<h;  j+=1)
-		{
-			for(i=0; i<w ; i+=1)
-				{
-		        	A = ima.getRGB( i, j );
-		        	image[i][j][0]=(byte)(A >>> 16)&0xFF;
-		        	image[i][j][1]=(byte)(A >>> 8)&0xFF;
-		        	image[i][j][2]=(byte)(A >>> 0)&0xFF;
-				}   
-		}
 		
+		
+		couleur[] palette;
 		//passage d'un tableau w*h à un tableau à une ligne
 		int[][] line= linear(image,w,h);
 		//création d'un arbre à partir de line
@@ -50,13 +26,26 @@ public class Quant implements ActionListener {
 		System.out.println("arbre de la palette créé.");
 		int[][] image_traitee = quantif(Arbre2, image, w,h, palette);
 		System.out.println("Image Traitée!!!");
-
-
-		
-		
+		imagefinale = ajoutcoul(image_traitee, palette,w,h);		
  }
 
-	
+	public int[][][] returnImage()
+	{
+		return this.imagefinale;
+	}
+	public int[][][] ajoutcoul(int[][] image, couleur[] palette, int w, int h)
+	{
+		int[][][] imagefinale = new int[w][h][3];
+		int i,j;
+		for (i=0; i<w; i++)
+		{
+			for(j=0; j<h; j++)
+			{
+				imagefinale[i][j]= palette[image[i][j]].getRVB();
+			}
+		}
+		return imagefinale;
+	}
 	public int[][] quantif(KdTree Arbre, int[][][] image, int w, int h, couleur[] pal)
 	{
 		int[][] image_t= new int[w][h];
