@@ -10,6 +10,10 @@ public class KdTree{
 		this.Racine= new KdNode(CouleurR,0);
 	}
 	
+	public static int getProf(){
+		return profondeur;
+	}
+	
 
 
 	public void addpoint(int RVB[]){
@@ -21,6 +25,17 @@ public class KdTree{
 		}
 		
 	}
+	
+	public void removePoint(int RVB[],int XY[]){
+		Couleur couleur = new Couleur(RVB);
+		KdNode point = new KdNode(couleur,0);
+		int p = this.Racine.removePointNode(point);
+		
+		if (p<this.profondeur){
+			this.profondeur = p;
+		}				
+	}
+	
 	public Couleur[] palette(int pow)
 	{
 		//renvoie une palette de 2**pow Couleurs
