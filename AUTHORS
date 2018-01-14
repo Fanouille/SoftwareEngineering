@@ -1,4 +1,8 @@
-Emeline BUOY
+Emeline BUOY : Ajout du bouton d'inversion de couleur de l'image, pour cela j'ai modifié la classe displayed image.
+J'ai pendant un moment essayé d'implémenter la classe heap afin de l'utiliser dans la méthode getKnearestneighbors. Néanmoins, 
+après de longues tentatives infructueuses et après discussion avec M.Zanni, le plus important a semblé être de travailler sur la 
+quantification. Ainsi, en compagnie de Thomas, nous avons tous deux travaillés sur la quantification.
+
 Fanny DIGUES
 Quentin SCHIAVON
-Thomas THEBAUD
+Thomas THEBAUT
